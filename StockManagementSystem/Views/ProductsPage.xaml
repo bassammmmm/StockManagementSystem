@@ -1,0 +1,82 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StockManagementSystem.ViewModels"
+             x:Class="StockManagementSystem.Views.ProductsPage"
+             Title="Products">
+
+    <VerticalStackLayout Padding="10" Spacing="15">
+
+        <!-- Page Title -->
+        <Label Text="Products" FontAttributes="Bold" FontSize="20" HorizontalOptions="Center" />
+
+        <!-- List of Products -->
+        <ListView ItemsSource="{Binding Products}"
+                  SelectionMode="Single"
+                  SelectedItem="{Binding SelectedProduct}"
+                  HasUnevenRows="true">
+
+            <!-- Header Row -->
+            <ListView.Header>
+                <StackLayout Orientation="Horizontal" Padding="5">
+                    <Label Text="ID" WidthRequest="100" FontAttributes="Bold" />
+                    <Label Text="Name" WidthRequest="100" FontAttributes="Bold" />
+                    <Label Text="Price" WidthRequest="100" FontAttributes="Bold" />
+                    <Label Text="Quantity" WidthRequest="100" FontAttributes="Bold" />
+                    <Label Text="LowStock" WidthRequest="100" FontAttributes="Bold" />
+                </StackLayout>
+            </ListView.Header>
+
+            <!-- Data Template for Each Product -->
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="5">
+                            <Label Text="{Binding Id}" WidthRequest="100" />
+                            <Label Text="{Binding Name}" WidthRequest="100" />
+                            <Label Text="{Binding Price}" WidthRequest="100" />
+                            <Label Text="{Binding Quantity}" WidthRequest="100" />
+                            <Label Text="{Binding LowStockThreshold}" WidthRequest="60"
+                                   TextColor="{Binding IsLowStock, Converter={StaticResource BoolToColorConverter}}" />
+
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+        <!-- Grid for Labels and Entry Fields -->
+        <Grid ColumnDefinitions="100,100,100,100,100"
+              RowDefinitions="Auto,Auto"
+              ColumnSpacing="10"
+              HorizontalOptions="Center">
+            <!-- Labels Row -->
+            <Label Text="ID" Grid.Row="0" Grid.Column="0" HorizontalTextAlignment="Center" FontAttributes="Bold" />
+            <Label Text="Name" Grid.Row="0" Grid.Column="1" HorizontalTextAlignment="Center" FontAttributes="Bold" />
+            <Label Text="Price" Grid.Row="0" Grid.Column="2" HorizontalTextAlignment="Center" FontAttributes="Bold" />
+            <Label Text="Quantity" Grid.Row="0" Grid.Column="3" HorizontalTextAlignment="Center" FontAttributes="Bold" />
+            <Label Text="LowStock" Grid.Row="0" Grid.Column="4" HorizontalTextAlignment="Center" FontAttributes="Bold" />
+
+            <!-- Entries Row -->
+            <Entry Text="{Binding NewProductId}" Grid.Row="1" Grid.Column="0" Keyboard="Numeric" HorizontalTextAlignment="Center" />
+            <Entry Text="{Binding NewProductName}" Grid.Row="1" Grid.Column="1" HorizontalTextAlignment="Center" />
+            <Entry Text="{Binding NewProductPrice}" Grid.Row="1" Grid.Column="2" Keyboard="Numeric" HorizontalTextAlignment="Center"/>
+            <Entry Text="{Binding NewProductQuantity}" Grid.Row="1" Grid.Column="3" Keyboard="Numeric" HorizontalTextAlignment="Center"/>
+            <Entry Text="{Binding NewProductLowThreshold}" Grid.Row="1" Grid.Column="4" Keyboard="Numeric" HorizontalTextAlignment="Center"/>
+        </Grid>
+
+        <!-- Buttons Row -->
+        <HorizontalStackLayout Spacing="15" HorizontalOptions="Center">
+            <Button Text="Add Product" Command="{Binding AddProductCommand}" />
+            <Button Text="Remove Selected" Command="{Binding RemoveProductCommand}" />
+            <Button Text="Update Selected" Command="{Binding UpdateProductCommand}" />
+        </HorizontalStackLayout>
+
+        <!-- Total Inventory Value at the Bottom -->
+        <HorizontalStackLayout HorizontalOptions="Start" Spacing="10">
+            <Label Text="Total Inventory Value:" FontAttributes="Bold" />
+            <Label Text="{Binding TotalInventoryValue}" FontAttributes="Bold" FontSize="16"/>
+        </HorizontalStackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>
