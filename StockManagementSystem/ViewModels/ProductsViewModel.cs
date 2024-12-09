@@ -5,6 +5,7 @@ using StockManagementSystem.StockManagementSystem.DataLayer.Models;
 using StockManagementSystem.Services;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
+using System.Diagnostics;
 
 namespace StockManagementSystem.ViewModels
 {
@@ -21,8 +22,6 @@ namespace StockManagementSystem.ViewModels
             set { _selectedProduct = value; OnPropertyChanged(); }
         }
 
-        // Properties for adding/updating a product
-        public int NewProductId { get; set; }
         public string NewProductName { get; set; } = string.Empty;
         public decimal NewProductPrice { get; set; }
         public int NewProductQuantity { get; set; }
@@ -39,7 +38,6 @@ namespace StockManagementSystem.ViewModels
             _productService = productService;
             Products = new ObservableCollection<Product>(_productService.GetAllProducts());
             
-            // Commands: OOP encapsulating actions as object methods.
             AddProductCommand = new Command(AddProduct);
             RemoveProductCommand = new Command(RemoveProduct);
             UpdateProductCommand = new Command(UpdateProduct);
@@ -47,9 +45,9 @@ namespace StockManagementSystem.ViewModels
 
         private void AddProduct()
         {
+            Debug.WriteLine("AddProduct");
             var product = new Product
             {
-                Id = NewProductId,
                 Name = NewProductName,
                 Price = NewProductPrice,
                 Quantity = NewProductQuantity,
@@ -57,9 +55,7 @@ namespace StockManagementSystem.ViewModels
             };
             _productService.AddProduct(product);
 
-            // Refresh the UI by reloading products.
             RefreshProducts();
-            ClearNewProductFields();
         }
 
         private void RemoveProduct()
@@ -75,7 +71,10 @@ namespace StockManagementSystem.ViewModels
         {
             if (SelectedProduct != null)
             {
-                // Maybe we use the SelectedProduct fields directly.
+                SelectedProduct.Name = NewProductName;
+                SelectedProduct.Price = NewProductPrice;
+                SelectedProduct.Quantity = NewProductQuantity;
+                SelectedProduct.LowStockThreshold = NewProductLowThreshold;
                 _productService.UpdateProduct(SelectedProduct);
                 RefreshProducts();
             }
@@ -90,15 +89,6 @@ namespace StockManagementSystem.ViewModels
                 Products.Add(p);
 
             OnPropertyChanged(nameof(TotalInventoryValue));
-        }
-
-        private void ClearNewProductFields()
-        {
-            NewProductId = 0;
-            NewProductName = string.Empty;
-            NewProductPrice = 0m;
-            NewProductQuantity = 0;
-            NewProductLowThreshold = 0;
         }
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")

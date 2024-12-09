@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using StockManagementSystem.StockManagementSystem.DataLayer.Models;
 using StockManagementSystem.StockManagementSystem.DataLayer;
+using System.Diagnostics;
 
 namespace StockManagementSystem.Services
 {
     public class PostgresProductService : IProductService
     {
-        private readonly ProductDbContext _dbContext;
-        public PostgresProductService(ProductDbContext dbContext) {
+        private readonly AppDbContext _dbContext;
+        public PostgresProductService(AppDbContext dbContext) {
             _dbContext = dbContext;
         }
         public List<Product> GetAllProducts()

@@ -1,0 +1,39 @@
+# Stage 1: Build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /app
+
+# Copy the solution and project files
+COPY *.sln ./
+COPY StockManagementSystem/*.csproj ./StockManagementSystem/
+COPY StockManagementSystem.DataLayer/*.csproj ./StockManagementSystem.DataLayer/
+
+RUN dotnet restore
+
+# Copy all source code
+COPY StockManagementSystem/. ./StockManagementSystem/
+COPY StockManagementSystem.DataLayer/. ./StockManagementSystem.DataLayer/
+
+RUN dotnet build ./StockManagementSystem/StockManagementSystem.csproj -c Release -o /app/build
+
+# Stage 2: Publish
+FROM build AS publish
+RUN dotnet publish ./StockManagementSystem/StockManagementSystem.csproj -c Release -o /app/publish --no-restore
+
+# Stage 3: Runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+WORKDIR /app
+
+# Copy the published output
+COPY --from=publish /app/publish .
+
+# Copy entrypoint script
+COPY docker-entrypoint.sh /app/docker-entrypoint.sh
+RUN chmod +x /app/docker-entrypoint.sh
+
+# Set environment variables
+ENV ASPNETCORE_URLS=http://+:8080 \
+    DOTNET_RUNNING_IN_CONTAINER=true
+
+EXPOSE 8080
+
+ENTRYPOINT ["/app/docker-entrypoint.sh"]

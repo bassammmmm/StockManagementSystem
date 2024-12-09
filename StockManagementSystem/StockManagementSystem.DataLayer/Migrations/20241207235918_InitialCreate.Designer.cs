@@ -10,7 +10,7 @@ using StockManagementSystem.StockManagementSystem.DataLayer;
 
 namespace StockManagementSystem.DataLayer.Migrations
 {
-    [DbContext(typeof(ProductDbContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20241207235918_InitialCreate")]
     partial class InitialCreate
     {

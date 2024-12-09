@@ -7,9 +7,7 @@ namespace StockManagementSystem
         public App(IServiceProvider serviceProvider)
         {
             InitializeComponent();
-
-            // Resolve the ProductsPage from the DI container.
-            MainPage = new NavigationPage(serviceProvider.GetService<ProductsPage>());
+            MainPage = new AppShell();
         }
     }
 

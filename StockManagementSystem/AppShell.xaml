@@ -1,15 +1,20 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Shell
-    x:Class="StockManagementSystem.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:StockManagementSystem"
-    Shell.FlyoutBehavior="Disabled"
-    Title="StockManagementSystem">
+    xmlns:local="clr-namespace:StockManagementSystem.Views"
+    x:Class="StockManagementSystem.AppShell">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <Tab Title="Products" Icon="products_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate local:ProductsPage}" />
+        </Tab>
+        <Tab Title="Orders" Icon="orders_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate local:OrdersPage}" />
+        </Tab>
+        <Tab Title="Reports" Icon="reports_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate local:ReportsPage}" />
+        </Tab>
+    </TabBar>
 
 </Shell>

@@ -1,0 +1,15 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StockManagementSystem.ViewModels"
+             x:Class="StockManagementSystem.Views.ReportsPage"
+             Title="Reports">
+    <VerticalStackLayout Padding="10" Spacing="15">
+
+        <Button Text="Report Low Stock Items"
+               Command="{Binding GenerateLowStockReportCommand}"/>
+		<Button Text="Report Total Sales"
+				Command="{Binding GenerateTotalSalesReportCommand}"/>
+		<Button Text="Report Inventory Value"
+		        Command="{Binding GenerateInventoryValueReportCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>

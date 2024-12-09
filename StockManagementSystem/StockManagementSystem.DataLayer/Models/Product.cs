@@ -14,5 +14,6 @@ namespace StockManagementSystem.StockManagementSystem.DataLayer.Models
         public int Quantity { get; set; }
         public int LowStockThreshold { get; set; }
         public bool IsLowStock => Quantity < LowStockThreshold;
+
     }
 }
