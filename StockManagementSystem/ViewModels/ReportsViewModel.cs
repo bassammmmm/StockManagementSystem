@@ -93,7 +93,7 @@ namespace StockManagementSystem.ViewModels
         }
         private async Task<string> GenerateExcelReport(List<Product> lowStockItems)
         {
-            var fileName = Path.Combine("C:\\Users\\bassa\\OneDrive\\Desktop", "LowStockReport.xlsx");
+            var fileName = Path.Combine("C:\\Users\\Ayaas\\OneDrive\\Desktop", "LowStockReport.xlsx");
             using var package = new ExcelPackage();
             var worksheet = package.Workbook.Worksheets.Add("Low Stock Items");
 
@@ -114,7 +114,7 @@ namespace StockManagementSystem.ViewModels
         private async Task<string> GenerateTotalSalesExcelReport(List<Order> orders)
         {
             var today = DateTime.Now.ToString("yyyy-MM-dd");
-            var fileName = Path.Combine("C:\\Users\\bassa\\OneDrive\\Desktop", $"TotalSalesReport_{today}.xlsx");
+            var fileName = Path.Combine("C:\\Users\\Ayaas\\OneDrive\\Desktop", $"TotalSalesReport_{today}.xlsx");
 
             using var package = new ExcelPackage();
             var worksheet = package.Workbook.Worksheets.Add("Total Sales");
@@ -152,7 +152,7 @@ namespace StockManagementSystem.ViewModels
         private async Task<string> GenerateInventoryValueExcelReport(List<Product> products)
         {
             var today = DateTime.Now.ToString("yyyy-MM-dd");
-            var fileName = Path.Combine("C:\\Users\\bassa\\OneDrive\\Desktop", $"InventoryValueReport_{today}.xlsx");
+            var fileName = Path.Combine("C:\\Users\\Ayaas\\OneDrive\\Desktop", $"InventoryValueReport_{today}.xlsx");
             using var package = new ExcelPackage();
             var worksheet = package.Workbook.Worksheets.Add("Inventory Value");
 

@@ -1,0 +1,51 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StockManagementSystem.ViewModels"
+             x:Class="StockManagementSystem.Views.OrdersPage"
+             Title="Orders">
+
+    <VerticalStackLayout Padding="10" Spacing="15">
+
+        <StackLayout Orientation="Horizontal" Spacing="10">
+            <Picker ItemsSource="{Binding Products}"
+                    SelectedItem="{Binding SelectedProduct}"
+                    ItemDisplayBinding="{Binding Name}"
+                    Title="Select a Product"
+                    WidthRequest="200"/>
+
+            <Label Text="Quantity:" VerticalTextAlignment="Center"/>
+            <Entry Text="{Binding OrderQuantity}" Keyboard="Numeric" WidthRequest="100" />
+
+            <Button Text="Place Order" Command="{Binding PlaceOrderCommand}" />
+        </StackLayout>
+
+        <Label Text="Existing Orders:" FontAttributes="Bold" Margin="0,20,0,0"/>
+
+        <ListView ItemsSource="{Binding Orders}" HasUnevenRows="true">
+            <ListView.Header>
+                <StackLayout Orientation="Horizontal" Padding="5">
+                    <Label Text="Order ID" WidthRequest="80" FontAttributes="Bold" />
+                    <Label Text="Product ID" WidthRequest="100" FontAttributes="Bold" />
+                    <Label Text="Qty" WidthRequest="60" FontAttributes="Bold" />
+                    <Label Text="Total Cost" WidthRequest="100" FontAttributes="Bold" />
+                    <Label Text="Date" WidthRequest="120" FontAttributes="Bold" />
+                </StackLayout>
+            </ListView.Header>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="5">
+                            <Label Text="{Binding Id}" WidthRequest="80" />
+                            <Label Text="{Binding ProductId}" WidthRequest="100" />
+                            <Label Text="{Binding QuantityOrdered}" WidthRequest="60" />
+                            <Label Text="{Binding TotalCost}" WidthRequest="100" />
+                            <Label Text="{Binding OrderDate}" WidthRequest="120" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </VerticalStackLayout>
+</ContentPage>
